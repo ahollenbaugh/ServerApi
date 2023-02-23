@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// for the CORS error:
+builder.Services.AddCors(options => options.AddPolicy("AllowAnything", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -16,6 +19,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAnything");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
